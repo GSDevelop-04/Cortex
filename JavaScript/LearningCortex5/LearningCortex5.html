@@ -3,9 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>Machine learning</title>
-	<script type="text/javascript" src="LearningCortex.js"></script>
-	<script type="text/javascript" src="CreationRoute.js"></script>
-
 	<style type="text/css">
 		canvas
 		{
@@ -49,15 +46,19 @@
 		</td>
 		<td>
 			<img src="reseau1.svg"/>
+			<br>
+			C0: <input type="number" id="C0" value="0" required minlength="4" maxlength="16" size="16">
+			<br>
+			C1: <input type="number" id="C1" value="0" required minlength="4" maxlength="16" size="16">
+			<br>
+			C2: <input type="number" id="C2" value="0" required minlength="4" maxlength="16" size="16">
+			<br>
+			<button type="button" onClick="javascript:init()"> Valider </button>
 			<table>
 				<tr><td><textarea rows="15" cols="35" id="distances" value="0" readonly="readonly" height="600"></textarea><td></tr>
-
 			</table>
-		</td>
-	</tr>
-	<tr>
-	    <td>
-			Rythme apprentissage: <input type="range" min="0" max="100" value="0" class="slider" oninput="rythme_bouje(event);" ; id="rythme" >
+			<button type="button" onClick="javascript:efface()"> Initialiser le log csv </button>
+			<button type="button" onClick="javascript:enregistre()"> Enregistrer le csv </button>
 		</td>
 	</tr>
 	<tr>
@@ -66,14 +67,19 @@
 			Vitesse point actif: <input type="range" min="0" max="150" value="0" class="slider" oninput="vitesse_bouje(event);" ; id="vitesse" >
 		</td>
 	</tr>
+	<tr>
+	    <td>
+			Rythme apprentissage: <input type="range" min="0" max="100" value="0" class="slider" oninput="rythme_bouje(event);" ; id="rythme" >
+		</td>
+	</tr>
 	</table>
 	<img src="voiture.png" id="voiture" style="display:none;"/>
 	<img src="voiture jaune.png" id="voitureProf" style="display:none;"/>
 	
 	<img src="coupe.png" id="coupe" style="display:none;"/>
-	<script type="text/javascript" src="LearningCortex.js"></script>
+	<script type="text/javascript" src="LearningCortex5.js"></script>
 	<script type="text/javascript" src="CreationRoute.js"></script>
-	<script type="text/javascript" src="brain.js"></script>
+	<script type="text/javascript" src="brain5.js"></script>
 
 </body>
 </html>

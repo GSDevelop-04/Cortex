@@ -1,6 +1,4 @@
-﻿// Sylvain Grimal c2020
-
-var nbTroncon = 24;
+﻿var nbTroncon = 24;
 var rExtMax=340, xc=400,yc=300, xy=0.75, larRoute=120, lambda=0.22, lambdaR=0.17;
 var vitesse_defaut=100;
 var x1 = new Array(nbTroncon*2);
