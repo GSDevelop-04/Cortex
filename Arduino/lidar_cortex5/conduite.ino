@@ -1,6 +1,6 @@
-#define C0 0.0019 //C0/10000
-#define C1 57
-#define C2 0.029   // C2/1000
+#define C0 0.0005 
+#define C1 5
+#define C2 0.03   
 
 #define ECH 2  // coef ech pixel/cm
 #define ROT 80 // coef direction
@@ -24,7 +24,7 @@ void conduite() {
    if (d4==9999) d4=0;   
 
    direction=C0*d4-C0*d2;
-   vitesse+=C2*(d3-C1/ECH);
+   vitesse=C2*d3*ECH+C1;
 
 
 

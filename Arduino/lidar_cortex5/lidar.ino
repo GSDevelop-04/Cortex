@@ -1,4 +1,4 @@
-
+#define SERIAL_BUFFER_SIZE 512
 
 void lidar(){
   if (Serial1.available()>0) {
