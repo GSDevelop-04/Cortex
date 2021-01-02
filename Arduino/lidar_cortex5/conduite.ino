@@ -50,42 +50,69 @@ void conduite() {
 
    
    if (moteurDroit>=0) {
-      digitalWrite(PINDIRA,false);
+      digitalWrite(PINA1,false);
 #if defined(Due)   
-      analogWrite(PINPWMA,min(moteurDroit+50,255));
+      analogWrite(PINA2,min(moteurDroit+50,255));
 #endif
 #if defined(ESP32)
-      ledcWrite(PINPWMA, min(4*(moteurDroit+50),1023));
+      ledcWrite(PINA2, min(4*(moteurDroit+50),1023));
 #endif
 
    }
    else {
-      digitalWrite(PINDIRA,true);
+#if defined(VARIADIRPWM)
+      digitalWrite(PINA1,true);
 #if defined(Due)   
-      analogWrite(PINPWMA,min(-moteurDroit+50,255));
+      analogWrite(PINA2,min(-moteurDroit+50,255));
 #endif
 #if defined(ESP32)
-      ledcWrite(PINPWMA, min(4*(-moteurDroit+50),1023));
+      ledcWrite(PINA2, min(4*(-moteurDroit+50),1023));
 #endif          
+#endif
+
+#if defined(VARIAA1A2)
+      digitalWrite(PINA2,false);
+#if defined(Due)   
+      analogWrite(PINA1,min(-moteurDroit+50,255));
+#endif
+#if defined(ESP32)
+      ledcWrite(PINA1, min(4*(-moteurDroit+50),1023));
+#endif          
+#endif
+
    }
    
    if (moteurGauche>=0) {
-      digitalWrite(PINDIRB,false);
+      digitalWrite(PINB1,false);
 #if defined(Due)   
-      analogWrite(PINPWMB,min(moteurGauche+50,255));
+      analogWrite(PINB2,min(moteurGauche+50,255));
 #endif
 #if defined(ESP32)
-      ledcWrite(PINPWMB, min(4*(moteurGauche+50),1023));
+      ledcWrite(PINB2, min(4*(moteurGauche+50),1023));
 #endif      
    }
    else {
-      digitalWrite(PINDIRB,true);
-      #if defined(Due)   
-      analogWrite(PINPWMB,min(-moteurGauche+50,255));
+#if defined(VARIADIRPWM)
+      digitalWrite(PINB1,true);
+#if defined(Due)   
+      analogWrite(PINB2,min(-moteurGauche+50,255));
 #endif
 #if defined(ESP32)
-      ledcWrite(PINPWMB, min(4*(-moteurGauche+50),1023));
+      ledcWrite(PINB2, min(4*(-moteurGauche+50),1023));
 #endif    
+#endif
+
+#if defined(VARIAA1A2)
+      digitalWrite(PINB2,false);
+#if defined(Due)   
+      analogWrite(PINB1,min(-moteurGauche+50,255));
+#endif
+#if defined(ESP32)
+      ledcWrite(PINB1, min(4*(-moteurGauche+50),1023));
+#endif    
+#endif
+
+
    }
  
 }

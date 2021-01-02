@@ -1,22 +1,27 @@
 #include "commandes.h"
+
 // choisir votre carte en mettant en commentaire l'autre
 //#define Due
 #define ESP32
 
+// Choisir le type de variateur utilisé en mettant en commentaire l'autre
+#define VARIADIRPWM  //  Dir PINA1 et PWM PINA2 (shield arduino)
+//#define VARIAA1A2    // avant PINA1=0 PINA2=PWM et arriere PINA1=PWM et PINA2=0 (DRV8833 fast decay SLEEP à 1 / TB6612 compatible avec PWM et STBY à 1) 
+
 #if defined(Due)
-#define PINDIRA 4
-#define PINPWMA 5
-#define PINDIRB 12
-#define PINPWMB 9
+#define PINA1 4
+#define PINA2 5
+#define PINB1 12
+#define PINB2 9
 #define YDLIDAR_MOTOR_SCTP 3 // The PWM pin for control the speed of YDLIDAR's motor. 
 #define YDLIDAR_MOTRO_EN   7 // The ENABLE PIN for YDLIDAR's motor      
 #define LIDAR Serial1    
 #endif
 #if defined(ESP32)
-#define PINDIRA 34
-#define PINPWMA 35
-#define PINDIRB 22
-#define PINPWMB 19
+#define PINA1 34
+#define PINA2 35
+#define PINB1 22
+#define PINB2 19
 #define YDLIDAR_MOTOR_SCTP 23 // The PWM pin for control the speed of YDLIDAR's motor. 
 #define YDLIDAR_MOTRO_EN   27 // The ENABLE PIN for YDLIDAR's motor          
 #define LIDAR Serial2
@@ -50,18 +55,18 @@ bool lid_pause=false;
 void setup() {
   // put your setup code here, to run once:
   // init moteurs
-  pinMode(PINDIRA,OUTPUT);
-  pinMode(PINPWMA,OUTPUT);
-  pinMode(PINDIRB,OUTPUT);
-  pinMode(PINPWMB,OUTPUT);
+  pinMode(PINA1,OUTPUT);
+  pinMode(PINA2,OUTPUT);
+  pinMode(PINB1,OUTPUT);
+  pinMode(PINB2,OUTPUT);
 
 #if defined(Due)   
-      analogWrite(PINPWMA,0));
-      analogWrite(PINPWMB,0);
+      analogWrite(PINA2,0));
+      analogWrite(PINB2,0);
 #endif
 #if defined(ESP32)
-      ledcWrite(PINPWMA, 0);
-      ledcWrite(PINPWMB, 0);     
+      ledcWrite(PINA2, 0);
+      ledcWrite(PINB2, 0);     
 #endif
 
   //init lidar
