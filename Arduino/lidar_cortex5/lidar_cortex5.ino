@@ -1,11 +1,26 @@
 #include "commandes.h"
+// choisir votre carte en mettant en commentaire l'autre
+#define Due
+// #define ESP32
+
+#if defined(Due)
 #define PINDIRA 4
 #define PINPWMA 5
 #define PINDIRB 12
 #define PINPWMB 9
 #define YDLIDAR_MOTOR_SCTP 3 // The PWM pin for control the speed of YDLIDAR's motor. 
-#define YDLIDAR_MOTRO_EN   7 // The ENABLE PIN for YDLIDAR's motor          
-
+#define YDLIDAR_MOTRO_EN   7 // The ENABLE PIN for YDLIDAR's motor      
+#define LIDAR Serial1    
+#endif
+#if defined(Due)
+#define PINDIRA 34
+#define PINPWMA 35
+#define PINDIRB 22
+#define PINPWMB 19
+#define YDLIDAR_MOTOR_SCTP 23 // The PWM pin for control the speed of YDLIDAR's motor. 
+#define YDLIDAR_MOTRO_EN   27 // The ENABLE PIN for YDLIDAR's motor          
+#define LIDAR Serial2
+#endif
 
 char car;
 char octet;
@@ -51,7 +66,7 @@ void setup() {
   nb=0;
 
   Serial.begin(115200);
-  Serial1.begin(128000);
+  LIDAR.begin(128000);
   
   delay(3000);
   digitalWrite(YDLIDAR_MOTRO_EN, HIGH);

@@ -1,12 +1,12 @@
-#define SERIAL_BUFFER_SIZE 512
+
 
 void lidar(){
-  if (Serial1.available()>0) {
-      donnees=Serial1.read();
+  if (LIDAR.available()>0) {
+      donnees=LIDAR.read();
       trame[n]=donnees;
       n++;
-      if (Serial1.available()>200){
-         Serial1.write(stop,2);
+      if (LIDAR.available()>200){
+         LIDAR.write(stop,2);
          pause=true;
       }
       // normalement inutile
@@ -131,7 +131,7 @@ void lidar(){
       // Plus de caractere dans le buffer
       if (pause&&(mode!=DEBUT)) {
          //Serial.println("Redemande Scan");       
-         Serial1.write(scan,2);
+         LIDAR.write(scan,2);
          mode=START;
          n=0;
          nb=7;

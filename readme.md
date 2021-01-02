@@ -86,8 +86,8 @@ L'ensemble est sous licence **CC BY-NC-SA**
 **Liasons Arduino Due ou ESP32 Lidar:**  
 * Série: Due RX1 / ESP32 RX2           <-> Tx Lidar X4 Tx X2
 * Série: Due TX1 / ESP32 TX2           <-> Rx Lidar X4 Nc X2
-* Vitesse Moteur Due D7 / ESP32 GPIO 23<-> M_SCTR Lidar X4 M_SCTR X2
-* Enable Due D3 / ESP32 GPIO 27        <-> M_EN Lidar X4 Nc X2
+* Vitesse Moteur Due D7 / ESP32 GPIO 27<-> M_SCTR Lidar X4 M_SCTR X2
+* Enable Due D3 / ESP32 GPIO 23        <-> M_EN Lidar X4 Nc X2
 
 **Liaisons Arduino Due ou ESP32 Variateur:**  
 * Due D5 /  ESP32 GPIO 35 <-> APWM 
@@ -105,7 +105,7 @@ L'ensemble est sous licence **CC BY-NC-SA**
 ##   3) Vidéos
 
 à faire
-* [Présentation: https://youtu.be/](https://youtu.be/U6bnyhtQa3g)
+* [Présentation: https://youtu.be/U6bnyhtQa3g](https://youtu.be/U6bnyhtQa3g)
 * [Algorithme génétique: https://youtu.be/](https://)
 * [Apprentissage supervisé: https://youtu.be/](https://youtu.be/)
 * [Modélisation caméra sténopé: https://youtu.be/](https://youtu.be/)

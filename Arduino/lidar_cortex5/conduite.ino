@@ -1,6 +1,6 @@
-#define C0 0.0005 
+#define C0 0.0005 //C0/10000
 #define C1 5
-#define C2 0.03   
+#define C2 0.03   // C2/1000
 
 #define ECH 2  // coef ech pixel/cm
 #define ROT 80 // coef direction
