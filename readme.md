@@ -2,7 +2,7 @@
 <br/>
 <p align="center">
    <a href="https://github.com/GSDevelop-04/Cortex">
-    <img src="Images/image.jpg" alt="Logo" width="320" height="180">
+    <img src="Images/image.png" alt="Logo" width="320" height="180">
    </a>
    <br/>
    Plateforme de découverte et d'étude de L'Intelligence Artificielle<br/>
@@ -105,7 +105,7 @@ L'ensemble est sous licence **CC BY-NC-SA**
 ##   3) Vidéos
 
 à faire
-* [Présentation: https://youtu.be/](https://youtu.be/)
+* [Présentation: https://youtu.be/](https://youtu.be/U6bnyhtQa3g)
 * [Algorithme génétique: https://youtu.be/](https://)
 * [Apprentissage supervisé: https://youtu.be/](https://youtu.be/)
 * [Modélisation caméra sténopé: https://youtu.be/](https://youtu.be/)
