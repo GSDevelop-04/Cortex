@@ -55,8 +55,8 @@ Le véhicule professeur suit la trajectoire, il est possible de récupérer les 
 Les calculs des coefficients peuvent être alors fait par regression lineaire dans un tableur: il faut trier les valeurs non significatives (quand d4-d2<100) puis calculer les valeurs par régression lineaire (attention pour la direction la droite doit passer par zero et l'option régression linéaire ne le fait pas, il faut donc entrer les formules).<br/>
 Le calcul peut aussi être automatique (on utilise, dans le programme javaScript, pour la direction la moyenne entre la regression horizontale et verticale, on pourrait aussi utiliser une régression orthogonale mais le calcul est un peu plus complexe sans apporter d'avantage significatif )
 
-**LearnigCortex12:** Version à 12 neurones et 42 poids synaptiques (avec les biais), elle est destinée à la découverte de l'apprentissage supervisé avec rétroaction du gradient d'erreur. La fonction d'activation est une sigmoïde (une version avec fonction ReLu est à l'étude).<br/>
-Une premiere version ne comprend que la direction (11 neurones: 1 seul neurone de sortie et 36 poids synaptiques) et permet d'appréhender les calculs de rétroaction du gradient d'erreur sur la couche de sortie et la couche cachée.<br/>
+**LearnigCortex12:** Version à 12 neurones et 42 poids synaptiques (avec les biais), elle est destinée à la découverte de l'apprentissage supervisé avec rétropropagation du gradient d'erreur. La fonction d'activation est une sigmoïde (une version avec fonction ReLu est à l'étude).<br/>
+Une premiere version ne comprend que la direction (11 neurones: 1 seul neurone de sortie et 36 poids synaptiques) et permet d'appréhender les calculs de rétropropagation du gradient d'erreur sur la couche de sortie et la couche cachée.<br/>
 La version 12 neurones est en cours de developpement.
 
 **Maquette:** Le modèle est entierement imprimable en 3D. Si vous utilisez une Arduino Due il faut couper les fixations de ESP 32 après l'impression. Les coefficients obtenus sur les simulations sont à copier dans le programme Arduino.
