@@ -14,7 +14,7 @@
 
 Cortex est un véhicule d'étude de l'Intelligence Artificielle avec réseaux de neurones.
 cliquer pour voir la vidéo sur youtube:
-[![Vidéo](https://github.com/GSDevelop-04/Cortex/blob/main/Images/presentation.jpg)](https://youtu.be/mkndSQjNtn8)
+[![Vidéo](https://github.com/GSDevelop-04/Cortex/blob/main/Images/presentation.jpg)](https://youtu.be/U6bnyhtQa3g)
 
 Cette plateforme permet de découvrir les alghorithmes génétiques ainsi que l'apprentissage supervisé.
 
