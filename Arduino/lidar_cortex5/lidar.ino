@@ -7,7 +7,7 @@ void lidar(){
       n++;
       if (LIDAR.available()>200){
          LIDAR.write(stop,2);
-         pause=true;
+         lid_pause=true;
       }
       // normalement inutile
       if (((nb==0)||(nb>80))&&(mode!=DEBUT)) {
@@ -129,13 +129,13 @@ void lidar(){
          
   } else {
       // Plus de caractere dans le buffer
-      if (pause&&(mode!=DEBUT)) {
+      if (lid_pause&&(mode!=DEBUT)) {
          //Serial.println("Redemande Scan");       
          LIDAR.write(scan,2);
          mode=START;
          n=0;
          nb=7;
-         pause=false;
+         lid_pause=false;
       }
   }
 }
@@ -170,5 +170,10 @@ void affiche(int longueur) {
 }
 
 void vitesseLidar(int pourCent){
+#if defined(Due)   
   analogWrite(YDLIDAR_MOTOR_SCTP, 2.56*pourCent);
+#endif
+#if defined(ESP32)
+  ledcWrite(YDLIDAR_MOTOR_SCTP, 10.23*pourCent);
+#endif
 }

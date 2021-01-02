@@ -1,7 +1,7 @@
 #include "commandes.h"
 // choisir votre carte en mettant en commentaire l'autre
-#define Due
-// #define ESP32
+//#define Due
+#define ESP32
 
 #if defined(Due)
 #define PINDIRA 4
@@ -12,7 +12,7 @@
 #define YDLIDAR_MOTRO_EN   7 // The ENABLE PIN for YDLIDAR's motor      
 #define LIDAR Serial1    
 #endif
-#if defined(Due)
+#if defined(ESP32)
 #define PINDIRA 34
 #define PINPWMA 35
 #define PINDIRB 22
@@ -35,7 +35,7 @@ byte donnees;
 byte mode;
 
 
-bool pause=false;
+bool lid_pause=false;
 
 #define DEBUT 0
 #define START 1
@@ -54,8 +54,16 @@ void setup() {
   pinMode(PINPWMA,OUTPUT);
   pinMode(PINDIRB,OUTPUT);
   pinMode(PINPWMB,OUTPUT);
-  analogWrite(PINPWMA,0);
-  analogWrite(PINPWMB,0);
+
+#if defined(Due)   
+      analogWrite(PINPWMA,0));
+      analogWrite(PINPWMB,0);
+#endif
+#if defined(ESP32)
+      ledcWrite(PINPWMA, 0);
+      ledcWrite(PINPWMB, 0);     
+#endif
+
   //init lidar
   pinMode(YDLIDAR_MOTOR_SCTP, OUTPUT);
   pinMode(YDLIDAR_MOTRO_EN, OUTPUT);  
@@ -72,14 +80,14 @@ void setup() {
   digitalWrite(YDLIDAR_MOTRO_EN, HIGH);
   Serial.println ("C'est parti");
   octet=0xA5;
-  Serial1.write(octet);
+  LIDAR.write(octet);
   octet=0x40;
-  Serial1.write(octet);
+  LIDAR.write(octet);
   delay(2000);
-     Serial1.write(scan,2);
-     mode=START;
-     n=0;
-     nb=7;
+  LIDAR.write(scan,2);
+  mode=START;
+  n=0;
+  nb=7;
 }
 
 void loop() {

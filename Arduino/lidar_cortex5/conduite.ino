@@ -51,19 +51,41 @@ void conduite() {
    
    if (moteurDroit>=0) {
       digitalWrite(PINDIRA,false);
+#if defined(Due)   
       analogWrite(PINPWMA,min(moteurDroit+50,255));
+#endif
+#if defined(ESP32)
+      ledcWrite(PINPWMA, min(4*(moteurDroit+50),1023));
+#endif
+
    }
    else {
       digitalWrite(PINDIRA,true);
-      analogWrite(PINPWMA,min(-moteurDroit+50,255));      
+#if defined(Due)   
+      analogWrite(PINPWMA,min(-moteurDroit+50,255));
+#endif
+#if defined(ESP32)
+      ledcWrite(PINPWMA, min(4*(-moteurDroit+50),1023));
+#endif          
    }
+   
    if (moteurGauche>=0) {
       digitalWrite(PINDIRB,false);
+#if defined(Due)   
       analogWrite(PINPWMB,min(moteurGauche+50,255));
+#endif
+#if defined(ESP32)
+      ledcWrite(PINPWMB, min(4*(moteurGauche+50),1023));
+#endif      
    }
    else {
       digitalWrite(PINDIRB,true);
-      analogWrite(PINPWMB,min(-moteurGauche+50,255));      
+      #if defined(Due)   
+      analogWrite(PINPWMB,min(-moteurGauche+50,255));
+#endif
+#if defined(ESP32)
+      ledcWrite(PINPWMB, min(4*(-moteurGauche+50),1023));
+#endif    
    }
  
 }
