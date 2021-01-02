@@ -84,18 +84,22 @@ L'ensemble est sous licence **CC BY-NC-SA**
 ##    2) Câblage
 
 **Liasons Arduino Due ou ESP32 Lidar:**  
-* RX ESP32 (RX2) / Tx Lidar
-* TX ESP32 (RX1) / Rx Lidar
+* Série: Due RX1 / ESP32 RX2           <-> Tx Lidar X4 Tx X2
+* Série: Due TX1 / ESP32 TX2           <-> Rx Lidar X4 Nc X2
+* Vitesse Moteur Due D7 / ESP32 GPIO 23<-> M_SCTR Lidar X4 M_SCTR X2
+* Enable Due D3 / ESP32 GPIO 27        <-> M_EN Lidar X4 Nc X2
 
 **Liaisons Arduino Due ou ESP32 Variateur:**  
-* Arduino Due D5  ou ESP32 xx / APWM 
-* Arduino Due D4  ou ESP32 xx / AIN1  // Marche avant: 0 Marche arrière: 1  
-*                          Nc / AIN2  // Marche avant: 1 Marche arrière: 0
-* Arduino Due D9  ou ESP32 xx / BPWM 
-* Arduino Due D12 ou ESP32 xx / BIN1  // Marche avant: 0 Marche arrière: 1
-*                          Nc / BIN2  // Marche avant: 1 Marche arrière: 0				
+* Due D5 /  ESP32 GPIO 35 <-> APWM 
+* Due D4 /  ESP32 GPIO 34 <-> AIN1  // Marche avant: 0 Marche arrière: 1  
+* Nb: Nc                  <-> AIN2                          // Marche avant: 1 Marche arrière: 0
+* Due D9 /  ESP32 GPIO 19 <-> BPWM 
+* Due D12 / ESP32 GPIO 22 <-> BIN1  // Marche avant: 0 Marche arrière: 1
+* Nb: Nc                  <-> BIN2                             // Marche avant: 1 Marche arrière: 0
+* +3.3 V                  <-> Vcc selon carte
+* Vbat                    <-> VM				
 
-**Et les alimentations:** Le 5v est fourni par un mini-module regulateur 5V à découpage (le lidar consomme trop pour le regulateur Arduino) 
+**Et les alimentations 5 V:** Le 5v est fourni par un mini-module regulateur 5V à découpage (le lidar consomme trop pour le regulateur Arduino) 
 
 
 ##   3) Vidéos
