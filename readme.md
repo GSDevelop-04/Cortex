@@ -90,12 +90,12 @@ L'ensemble est sous licence **CC BY-NC-SA**
 * Enable Due D3 / ESP32 GPIO 23        <-> M_EN Lidar X4 Nc X2
 
 **Liaisons Arduino Due ou ESP32 Variateur:**  
-* Due D5 /  ESP32 GPIO 35 <-> APWM 
-* Due D4 /  ESP32 GPIO 34 <-> AIN1  // Marche avant: 0 Marche arrière: 1  
-* Nb: Nc                  <-> AIN2                          // Marche avant: 1 Marche arrière: 0
-* Due D9 /  ESP32 GPIO 19 <-> BPWM 
+* Due D5 /  ESP32 GPIO 35 <-> APWM  // AIN2 DRV8833
+* Due D4 /  ESP32 GPIO 34 <-> AIN1  // Marche avant: 0 Marche arrière: 1
+
+* Due D9 /  ESP32 GPIO 19 <-> BPWM  // BIN2 DRV8833 
 * Due D12 / ESP32 GPIO 22 <-> BIN1  // Marche avant: 0 Marche arrière: 1
-* Nb: Nc                  <-> BIN2                             // Marche avant: 1 Marche arrière: 0
+
 * +3.3 V                  <-> Vcc selon carte
 * Vbat                    <-> VM				
 
