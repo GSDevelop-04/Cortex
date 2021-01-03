@@ -55,18 +55,19 @@ bool lid_pause=false;
 void setup() {
   // put your setup code here, to run once:
   // init moteurs
-  pinMode(PINA1,OUTPUT);
-  pinMode(PINA2,OUTPUT);
-  pinMode(PINB1,OUTPUT);
-  pinMode(PINB2,OUTPUT);
+
 
 #if defined(Due)   
       analogWrite(PINA2,0));
       analogWrite(PINB2,0);
 #endif
 #if defined(ESP32)
-      ledcWrite(PINA2, 0);
-      ledcWrite(PINB2, 0);     
+   ledcSetup(0, 10000, 8);   ledcSetup(1, 10000, 8);
+   ledcSetup(2, 10000, 8);   ledcSetup(3, 10000, 8);
+   ledcAttachPin(PINA1, 0);
+   ledcAttachPin(PINA2, 1);
+   ledcAttachPin(PINB1, 2);
+   ledcAttachPin(PINB2, 3);   
 #endif
 
   //init lidar
