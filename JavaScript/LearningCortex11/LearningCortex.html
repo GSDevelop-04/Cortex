@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Machine learning</title>
+	<script type="text/javascript" src="LearningCortex11.js"></script>
+	<script type="text/javascript" src="CreationRoute.js"></script>
+
+	<style type="text/css">
+		canvas
+		{
+			border:2px solid black;
+			background-color: green;
+		}
+	
+		.style2{
+    		vertical-align:middle;	
+		}
+		.slider {
+		  -webkit-appearance: none;
+		  width: 50%;
+		  height: 15px;
+		  border-radius: 5px;
+		  background: #d3d3d3;
+		  outline: none;
+		  opacity: 0.7;
+		  -webkit-transition: .2s;
+		  transition: opacity .2s;
+		}
+		.slider::-webkit-slider-thumb {
+		  -webkit-appearance: none;
+		  appearance: none;
+		  width: 25px;
+		  height: 25px;
+		  border-radius: 50%;
+		  background: #4CAF50;
+		  cursor: pointer;
+		}
+    
+	</style>
+</head>
+  
+<body>
+	GSDevelop CC BY-NC-SA <small>Sylvain GRIMAL 2020</small>
+	<table>
+	<tr>
+		<td>
+			<canvas id="espace" onmousedown="souris_appui(event);" onmousemove="souris_bouje(event);" onmouseup="souris_relache(event);" width="800" height="600"></canvas> 
+		</td>
+		<td>
+			<table>
+				<tr>
+					<td><img src="reseau11.svg" width="300" height="200" /></td>
+				</tr>
+				<tr>
+					<td>Performance: <output id="performance" value="XX.X">XX.X</output></td>				
+				</tr>
+				<tr>
+					<td><textarea rows="15" cols="50" id="reseau" value="0" readonly="readonly" height="300"></textarea></td>
+				</tr>
+				<tr>
+					<td><button type="button" onClick="javascript:enregistre()"> Enregistrer le réseau .ino </button></td>	
+				</tr>
+			</table>
+
+		</td>
+
+	</tr>
+	<tr>
+	    <td>
+			Rythme apprentissage: <input type="range" min="0" max="100" value="0" class="slider" oninput="rythme_bouje(event);" ; id="rythme" >
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button type="button" onClick="javascript:apprentissage()"> Apprentissage </button>
+			Vitesse point actif: <input type="range" min="0" max="150" value="0" class="slider" oninput="vitesse_bouje(event);" ; id="vitesse" >
+		</td>
+	</tr>
+	</table>
+	<img src="voiture.png" id="voiture" style="display:none;"/>
+	<img src="voiture jaune.png" id="voitureProf" style="display:none;"/>
+	<img src="volantProf.png" id="volantProf" style="display:none;"/>
+	<img src="volantEleve.png" id="volantEleve" style="display:none;"/>
+	<img src="coupe.png" id="coupe" style="display:none;"/>
+	<script type="text/javascript" src="LearningCortex11.js"></script>
+	<script type="text/javascript" src="CreationRoute.js"></script>
+	<script type="text/javascript" src="brain11.js"></script>
+
+</body>
+</html>
+
+
+
+
