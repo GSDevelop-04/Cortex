@@ -120,21 +120,22 @@ function bouclePrincipale() {
 		var t=professeur.gama;
 		// position entre le point n de la trajectoire et np
 		var n=professeur.troncon;
-				
-		var nvx=trajectoire.x(n,t);
-		var nvy=trajectoire.y(n,t);
-		var vit=trajectoire.vit(n,t);
-		teta=trajectoire.teta(n,t);
+		
+		var pasT=0.002;		
+		var nvx=trajectoire.x(n,t+pasT);
+		var nvy=trajectoire.y(n,t+pasT);
+		var vit=trajectoire.vit(n,t+pasT);
+		teta=trajectoire.teta(n,t+pasT);
 		// calcul de la nouvelle position
 
 		while (Math.pow(nvx-professeur.x,2)+Math.pow(nvy-professeur.y,2)< Math.pow(0.06*0.99*professeur.vitesse,2)) {
-			t=t+0.001; // en est toujours sur le troncon
-			nvx=trajectoire.x(n,t);
-			nvy=trajectoire.y(n,t);
-			vit=trajectoire.vit(n,t);
-			teta=trajectoire.teta(n,t);
+			t+=0.001; 
+			nvx=trajectoire.x(n,t+pasT);
+			nvy=trajectoire.y(n,t+pasT);
+			vit=trajectoire.vit(n,t+pasT);
+			teta=trajectoire.teta(n,t+pasT);
 		}
-		if (t>=1) {
+		if (t+pasT	>=1) {  // en est plus sur le troncon
 			professeur.troncon++;
 			if( professeur.troncon==nb_traj) professeur.troncon=0;
 			t=0;
@@ -285,9 +286,43 @@ function apprentissage() {
 }
 
 function enregistre(){
-	console.log("suppression prof");
-	professeur=null;
+	var source="void init() {\r// Poids des neurones de sortie \rfloat pNs[5]={";
+	for (var j = 0; j<rpDir.length-1; j++) {
+		source+=Math.trunc(10000*pNs[j])/10000+", ";
+	}
+	source+=Math.trunc(10000*pNs[rpDir.length-1])/10000;
+	
+	source+="};\r//Poids couche sortie:\rfloat pNc[5][5]={";
+
+	for ( var i = 0; i<pNc.length-1; i++) {
+		source+="{";
+		for ( var j = 0; j<pNc[i].length-1; j++) {
+			source+=Math.trunc(pNc[i][j]*10000)/10000+",";
+		}
+		source+=Math.trunc(pNc[i][pNc[i].length-1]*10000)/10000+"},\r";
+	}
+	source+="{";
+	for ( var j = 0; j<pNc[pNc.length-1].length-1; j++) {
+		source+=Math.trunc(pNc[pNc[pNc.length-1].length-1][j]*10000)/10000+",";
+	}
+	source+=Math.trunc(pNc[pNc.length-1][pNc[pNc.length-1].length-1]*10000)/10000+"}};\r";
+	
+	var filename="reseau.ino";
+	
+	var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(source));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+				
 }
+
+
 function voiture_apprenti(x,y,teta,vitesse, distance,coefs,image){
  	this.x = x;
  	this.y = y;

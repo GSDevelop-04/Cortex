@@ -62,7 +62,7 @@ function apprend(vit,deltateta,entree) {
 	var calcul = propage(entree);
 	// calcul erreur sortie
 	var erreur_delta_teta=(deltateta-calcul[1]);		
-	console.log(deltateta+" / "+calcul[1]+ " / " + perf);
+	//console.log(deltateta+" / "+calcul[1]+ " / " + perf);
 	var erreur2=erreur_delta_teta*erreur_delta_teta; 
 	perf=0.01*0.0002/(erreur2+0.0002)*100+0.99*perf; // filtre passe bas
 	//console.log("cible delta: "+ Math.trunc(deltateta*1000)/1000+ " Calcul: " + Math.trunc(1000*(calcul[1]))/1000);	
@@ -75,22 +75,17 @@ function apprend(vit,deltateta,entree) {
 	ctx.save();
 	ctx.translate(canvas.width/2,canvas.height/2);
 	ctx.rotate(deltateta*20);
-	ctx.drawImage(volantProf,-50,-50,100,100);
+	ctx.drawImage(volantProf,-75,-75,150,150);
 	ctx.restore();
 		
 	ctx.save();
 	ctx.translate(canvas.width/2,canvas.height/2);
 	ctx.rotate(calcul[1]*20);
-	ctx.drawImage(volantEleve,-50,-50,100,100);
+	ctx.drawImage(volantEleve,-75,-75,150,150);
 	ctx.restore();
-	
-
-
 	
 	// retropropagation
 	// direction		
-
-	
 
 	for ( var n = 0; n<inter.length; n++) {
 		rpDir[n] =  -erreur_delta_teta * (calcul[1]+0.5) * (1 - (calcul[1]+0.5)) * inter[n];
@@ -107,7 +102,6 @@ function apprend(vit,deltateta,entree) {
 		    //rpCachee[n][e] = -pNs[n]*erreur_delta_teta*entree[e];
 		}
 	}
-
 
 	nbApp++;
 

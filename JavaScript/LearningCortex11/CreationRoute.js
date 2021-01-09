@@ -105,20 +105,20 @@ function creerRoute() {
 	// calcul des tangentes
 	
 	//ctx.moveTo(x_traj[0],y_traj[0]);
-	vx_traj[0]=(-x_traj[nb_traj-1]+x_traj[1])/2;
-	vy_traj[0]=(-y_traj[nb_traj-1]+y_traj[1])/2;
+	vx_traj[0]=(-x_traj[nb_traj-1]+x_traj[1])/1.5;
+	vy_traj[0]=(-y_traj[nb_traj-1]+y_traj[1])/1.5;
 	vit_traj[0]=vitesse_defaut;
 	//console.log(vx_traj[0]+" / " +vy_traj[0]);
 
 	for (var i=1; i<nb_traj-1; i+=1){
 	//	ctx.lineTo(x_traj[i],y_traj[i]);
-		vx_traj[i]=(-x_traj[i-1]+x_traj[i+1])/2;
-		vy_traj[i]=(-y_traj[i-1]+y_traj[i+1])/2;
+		vx_traj[i]=(-x_traj[i-1]+x_traj[i+1])/1.5;
+		vy_traj[i]=(-y_traj[i-1]+y_traj[i+1])/1.5;
 		vit_traj[i]=vitesse_defaut;
 	}
 
-	vx_traj[nb_traj-1]=(-x_traj[nb_traj-2]+x_traj[0])/2;
-	vy_traj[nb_traj-1]=(-y_traj[nb_traj-2]+y_traj[0])/2;
+	vx_traj[nb_traj-1]=(-x_traj[nb_traj-2]+x_traj[0])/1.5;
+	vy_traj[nb_traj-1]=(-y_traj[nb_traj-2]+y_traj[0])/1.5;
 	vit_traj[nb_traj-1]=vitesse_defaut;
 	
 }
