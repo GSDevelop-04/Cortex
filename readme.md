@@ -18,10 +18,12 @@ cliquer pour voir la vidéo sur youtube:
 
 Cette plateforme permet de découvrir les alghorithmes génétiques ainsi que l'apprentissage supervisé.
 
+**Nouveau:  Version 0.2 utilisation d'un piste générée aléatoirement ou un circuit routier**
+ 
 <p align="center">
  <a href="https://github.com/GSDevelop-04/RaceMini">
     <img src="Images/GeneticCortex.png" alt="véhicules" width="640" height="373">
-    <img src="Images/LearningCortex.png" alt="véhicules" width="640" height="373">
+    <img src="Images/LearningNouv.png" alt="véhicules" width="640" height="373">
  </a>
 </p>
 
