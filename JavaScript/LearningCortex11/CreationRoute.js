@@ -1,24 +1,44 @@
 ﻿// Sylvain Grimal c2020
 
-var nbTroncon = 18;
-var rExtMax=340, xc=400,yc=300, xy=0.75, larRoute=130, lambda=0.12, lambdaR=0.1;
+var nbTroncon;
+var rExtMax=340, xc=400,yc=300, xy=0.75, larRoute=125, lambda=0.16, lambdaR=0.16;
+var xDepart,yDepart,tetaDepart;
 var vitesse_defaut=100;
-var x1 = new Array(nbTroncon*2);
-var y1 = new Array(nbTroncon*2);
-var x2 = new Array(nbTroncon*2);
-var y2 = new Array(nbTroncon*2);
+var x1 = new Array;
+var y1 = new Array;
+var x2 = new Array;
+var y2 = new Array;
 
-var ratio_traj=3;
-var nb_traj = nbTroncon/ratio_traj;
-var x_traj = new Array(nb_traj);
-var y_traj = new Array(nb_traj);
-var vx_traj = new Array(nb_traj);
-var vy_traj = new Array(nb_traj);
-var vit_traj = new Array(nb_traj);
+var ratio_traj;
+var nb_traj;
+var x_traj = new Array;
+var y_traj = new Array;
+var vx_traj = new Array;
+var vy_traj = new Array;
+var vit_traj = new Array;
 
 
 
 function creerRoute() {
+	nbTroncon = 18;
+	posVolantX=400;
+	posVolantY=300;
+	ratio_traj=3;
+	nb_traj = nbTroncon/ratio_traj;	
+	
+	x1 = new Array(nbTroncon*2);
+	y1 = new Array(nbTroncon*2);
+	x2 = new Array(nbTroncon*2);
+	y2 = new Array(nbTroncon*2);
+
+	x_traj = new Array(nb_traj);
+	y_traj = new Array(nb_traj);
+	vx_traj = new Array(nb_traj);
+	vy_traj = new Array(nb_traj);
+	vit_traj = new Array(nb_traj);
+	
+
+	
 	console.log("Création route");
     var rayon;
 	canvas = document.getElementById("espace");
@@ -120,6 +140,10 @@ function creerRoute() {
 	vx_traj[nb_traj-1]=(-x_traj[nb_traj-2]+x_traj[0])/1.5;
 	vy_traj[nb_traj-1]=(-y_traj[nb_traj-2]+y_traj[0])/1.5;
 	vit_traj[nb_traj-1]=vitesse_defaut;
+	
+	xDepart=x_traj[0];
+	yDepart=y_traj[0];
+	tetaDepart=Math.PI;
 	
 }
 

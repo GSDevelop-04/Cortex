@@ -73,13 +73,13 @@ function apprend(vit,deltateta,entree) {
 	
 	// Affichage Volants
 	ctx.save();
-	ctx.translate(canvas.width/2,canvas.height/2);
+	ctx.translate(posVolantX,posVolantY);
 	ctx.rotate(deltateta*20);
 	ctx.drawImage(volantProf,-75,-75,150,150);
 	ctx.restore();
 		
 	ctx.save();
-	ctx.translate(canvas.width/2,canvas.height/2);
+	ctx.translate(posVolantX,posVolantY);
 	ctx.rotate(calcul[1]*20);
 	ctx.drawImage(volantEleve,-75,-75,150,150);
 	ctx.restore();

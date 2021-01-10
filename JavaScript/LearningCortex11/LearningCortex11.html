@@ -3,8 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>Machine learning</title>
-	<script type="text/javascript" src="LearningCortex11.js"></script>
-	<script type="text/javascript" src="CreationRoute.js"></script>
 
 	<style type="text/css">
 		canvas
@@ -42,6 +40,8 @@
   
 <body>
 	GSDevelop CC BY-NC-SA <small>Sylvain GRIMAL 2020</small>
+	<button type="button" id="boutonRoute" onClick="javascript:route()" autocomplete="off">  Piste aléatoire  </button>
+	<button type="button" id="boutonCircuit" onClick="javascript:circuit()" autocomplete="off">  Circuit routier  </button>
 	<table>
 	<tr>
 		<td>
@@ -68,13 +68,16 @@
 	</tr>
 	<tr>
 	    <td>
-			Rythme apprentissage: <input type="range" min="0" max="100" value="0" class="slider" oninput="rythme_bouje(event);" ; id="rythme" >
+			Vitesse point actif: <input type="range" min="0" max="150" value="0" class="slider" oninput="vitesse_bouje(event);" ; id="vitesse" >		
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td> 
+		    <div>
+				<input type="radio" id="aleat" name="init" checked>Init Aleat.<input type="radio" id="base" name="init">Init base.				
+			</div>
 			<button type="button" onClick="javascript:apprentissage()"> Apprentissage </button>
-			Vitesse point actif: <input type="range" min="0" max="150" value="0" class="slider" oninput="vitesse_bouje(event);" ; id="vitesse" >
+			Rythme apprentissage: <input type="range" width="50" min="0" max="100" value="0" class="slider" oninput="rythme_bouje(event);"  id="rythme" >
 		</td>
 	</tr>
 	</table>
@@ -82,8 +85,8 @@
 	<img src="voiture jaune.png" id="voitureProf" style="display:none;"/>
 	<img src="volantProf.png" id="volantProf" style="display:none;"/>
 	<img src="volantEleve.png" id="volantEleve" style="display:none;"/>
-	<img src="coupe.png" id="coupe" style="display:none;"/>
 	<script type="text/javascript" src="LearningCortex11.js"></script>
+	<script type="text/javascript" src="CreationCircuit.js"></script>
 	<script type="text/javascript" src="CreationRoute.js"></script>
 	<script type="text/javascript" src="brain11.js"></script>
 

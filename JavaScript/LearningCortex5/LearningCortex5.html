@@ -39,6 +39,8 @@
   
 <body>
 	GSDevelop CC BY-NC-SA <small>Sylvain GRIMAL 2020</small>
+	<button type="button" id="boutonRoute" onClick="javascript:route()" autocomplete="off">  Piste aléatoire  </button>
+	<button type="button" id="boutonCircuit" onClick="javascript:circuit()" autocomplete="off">  Circuit routier  </button>
 	<table>
 	<tr>
 		<td>
@@ -54,8 +56,9 @@
 			C2: <input type="number" id="C2" value="0" required minlength="4" maxlength="16" size="16">
 			<br>
 			<button type="button" onClick="javascript:init()"> Valider </button>
+			<b>Performance: <output id="performance" value="XX.X">XX.X</output></b>
 			<table>
-				<tr><td><textarea rows="15" cols="35" id="distances" value="0" readonly="readonly" height="600"></textarea><td></tr>
+				<tr><td><textarea rows="10" cols="35" id="distances" value="0" readonly="readonly" height="600"></textarea><td></tr>
 			</table>
 			<button type="button" onClick="javascript:efface()"> Initialiser le log csv </button>
 			<button type="button" onClick="javascript:enregistre()"> Enregistrer le csv </button>
@@ -63,22 +66,23 @@
 	</tr>
 	<tr>
 		<td>
-			<button type="button" onClick="javascript:apprentissage()"> Apprentissage </button>
 			Vitesse point actif: <input type="range" min="0" max="150" value="0" class="slider" oninput="vitesse_bouje(event);" ; id="vitesse" >
 		</td>
 	</tr>
 	<tr>
 	    <td>
+			<button type="button" onClick="javascript:apprentissage()"> Apprentissage </button>
 			Rythme apprentissage: <input type="range" min="0" max="100" value="0" class="slider" oninput="rythme_bouje(event);" ; id="rythme" >
 		</td>
 	</tr>
 	</table>
 	<img src="voiture.png" id="voiture" style="display:none;"/>
 	<img src="voiture jaune.png" id="voitureProf" style="display:none;"/>
-	
-	<img src="coupe.png" id="coupe" style="display:none;"/>
+	<img src="volantProf.png" id="volantProf" style="display:none;"/>
+	<img src="volantEleve.png" id="volantEleve" style="display:none;"/>	
 	<script type="text/javascript" src="LearningCortex5.js"></script>
 	<script type="text/javascript" src="CreationRoute.js"></script>
+	<script type="text/javascript" src="CreationCircuit.js"></script>
 	<script type="text/javascript" src="brain5.js"></script>
 
 </body>

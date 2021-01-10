@@ -1,13 +1,37 @@
-﻿// sylvain grimal c2019
-var nbTroncon = 25;
-var rExtMax=340, xc=400,yc=300, xy=0.75, larRoute=120, lambda=0.22, lambdaR=0.17;
-var x1 = new Array(nbTroncon*2);
-var y1 = new Array(nbTroncon*2);
-var x2 = new Array(nbTroncon*2);
-var y2 = new Array(nbTroncon*2);
+﻿// Sylvain Grimal c2020
+
+var nbTroncon;
+var rExtMax=340, xc=400,yc=300, xy=0.75, larRoute=125, lambda=0.16, lambdaR=0.16;
+var xDepart,yDepart,tetaDepart;
+var vitesse_defaut=100;
+var x1 = new Array;
+var y1 = new Array;
+var x2 = new Array;
+var y2 = new Array;
+
 
 
 function creerRoute() {
+	nbTroncon = 18;
+	posVolantX=400;
+	posVolantY=300;
+	ratio_traj=3;
+	nb_traj = nbTroncon/ratio_traj;	
+	
+	x1 = new Array(nbTroncon*2);
+	y1 = new Array(nbTroncon*2);
+	x2 = new Array(nbTroncon*2);
+	y2 = new Array(nbTroncon*2);
+
+	x_traj = new Array(nb_traj);
+	y_traj = new Array(nb_traj);
+	vx_traj = new Array(nb_traj);
+	vy_traj = new Array(nb_traj);
+	vit_traj = new Array(nb_traj);
+	
+
+	
+	console.log("Création route");
     var rayon;
 	canvas = document.getElementById("espace");
     ctx = canvas.getContext("2d");
@@ -28,29 +52,32 @@ function creerRoute() {
 	x2[nbTroncon]= xc + rayon* Math.cos(2*Math.PI/nbTroncon);	
 	y2[nbTroncon]= yc + xy*rayon* Math.sin(2*Math.PI/nbTroncon);	
 
+	
 	for (var i=1; i<nbTroncon-1; i+=1) {		
-	  var teta = 2 * Math.PI * i / nbTroncon;
-	  rayon = rExtMax*(1+Math.random()*lambda);
-	  x1[i]= x2[i-1];	
-	  y1[i]= y2[i-1];	
-	  x2[i]= xc + rayon* Math.cos(teta+2*Math.PI/nbTroncon);	
-	  y2[i]= yc + xy*rayon* Math.sin(teta+2*Math.PI/nbTroncon);
-	  rayon=rayon-larRoute*(1+Math.random()*lambdaR);
-	  x1[i+nbTroncon]= x2[i+nbTroncon-1];
-	  y1[i+nbTroncon]= y2[i+nbTroncon-1];		
-	  x2[i+nbTroncon]= xc + rayon* Math.cos(teta+2*Math.PI/nbTroncon);	
-	  y2[i+nbTroncon]= yc + xy*rayon* Math.sin(teta+2*Math.PI/nbTroncon);
+		var teta = 2 * Math.PI * i / nbTroncon;
+		rayon = rExtMax*(1+Math.random()*lambda);
+		x1[i]= x2[i-1];	
+		y1[i]= y2[i-1];	
+		x2[i]= xc + rayon* Math.cos(teta+2*Math.PI/nbTroncon);	
+		y2[i]= yc + xy*rayon* Math.sin(teta+2*Math.PI/nbTroncon);
+		rayon=rayon-larRoute*(1+Math.random()*lambdaR);
+		x1[i+nbTroncon]= x2[i+nbTroncon-1];
+		y1[i+nbTroncon]= y2[i+nbTroncon-1];		
+		x2[i+nbTroncon]= xc + rayon* Math.cos(teta+2*Math.PI/nbTroncon);	
+		y2[i+nbTroncon]= yc + xy*rayon* Math.sin(teta+2*Math.PI/nbTroncon);
 
 	}
-	  x1[nbTroncon-1]= x2[nbTroncon-2];	
-	  y1[nbTroncon-1]= y2[nbTroncon-2];		
-	  x2[nbTroncon-1]= x1[0];	
-	  y2[nbTroncon-1]= y1[0];
-	
-	  x1[2*nbTroncon-1]= x2[2*nbTroncon-2];		
-	  y1[2*nbTroncon-1]= y2[2*nbTroncon-2];	
-	  x2[2*nbTroncon-1]= x1[nbTroncon];	
-	  y2[2*nbTroncon-1]= y1[nbTroncon];
+	x1[nbTroncon-1]= x2[nbTroncon-2];	
+	y1[nbTroncon-1]= y2[nbTroncon-2];		
+	x2[nbTroncon-1]= x1[0];	
+	y2[nbTroncon-1]= y1[0];
+
+	x1[2*nbTroncon-1]= x2[2*nbTroncon-2];		
+	y1[2*nbTroncon-1]= y2[2*nbTroncon-2];	
+	x2[2*nbTroncon-1]= x1[nbTroncon];	
+	y2[2*nbTroncon-1]= y1[nbTroncon];
+  
+
 	
 	// Affichage de la route exterieure
 	ctx.beginPath();	
@@ -70,7 +97,6 @@ function creerRoute() {
 	}
     ctx.fill();
 	
-
 	for (var i=0; i<2*nbTroncon; i+=1){
 		ctx.beginPath();	
 		ctx.strokeStyle='black';
@@ -79,8 +105,13 @@ function creerRoute() {
 		ctx.lineTo(x2[i],y2[i]);
 		ctx.stroke();
 
-	}
+	}	
+	
 
+	
+	xDepart=(x1[0]+x1[nbTroncon])/2;
+	yDepart=(y1[0]+y1[nbTroncon])/2;
+	tetaDepart=Math.PI;
 	
 }
 

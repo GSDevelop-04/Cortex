@@ -13,7 +13,10 @@ var canvas,
 	temps,
 	apprenti,
 	professeur,
-	performance;
+	performance,
+	base,
+	boutonRoute,
+	boutonCircuit;
 	
 	coefs = new Array(3);
 
@@ -22,8 +25,8 @@ var memo_passage = -1,
 	memo_actif = -1;
 
 
-var balay=2; // 2 pour 10 hz 3 pour 6 hz
-
+var balay=2, // 2 pour 10 hz 3 pour 6 hz
+	inactif=true;
 
 var teta=0;
 var anc_deltateta=0;
@@ -53,22 +56,10 @@ function cestparti() {
     performance = document.getElementById("performance");
     vitesse_slider = document.getElementById("vitesse");	
     rythme_slider = document.getElementById("rythme");
-	creerRoute();		
-	// Création d'une voiture
-	coefs[0]=0.00;
-	coefs[1]=0;
-	coefs[2]=0.0;
-		
-
-	fond=ctx.getImageData(0,0,800,600);
-	afficher_trajectoire();
+    base = document.getElementById("base");
+    boutonRoute = document.getElementById("boutonRoute");	
+	boutonCircuit = document.getElementById("boutonCircuit");	
 	
-
-	setTimeout(function(){
-       	canvas.focus();
-		temps=0;
-    	gameLoop = setInterval(bouclePrincipale, 50);  // 20 fps
-     }, 1000); 
 }
 
 function intercep(x,y,teta){
@@ -129,7 +120,7 @@ function bouclePrincipale() {
 		// calcul de la nouvelle position
 
 		while (Math.pow(nvx-professeur.x,2)+Math.pow(nvy-professeur.y,2)< Math.pow(0.06*0.99*professeur.vitesse,2)) {
-			t+=0.001; 
+			t+=pasT; 
 			nvx=trajectoire.x(n,t+pasT);
 			nvy=trajectoire.y(n,t+pasT);
 			vit=trajectoire.vit(n,t+pasT);
@@ -140,7 +131,7 @@ function bouclePrincipale() {
 			if( professeur.troncon==nb_traj) professeur.troncon=0;
 			t=0;
 		}		
-		//teta=Math.atan2(nvx-professeur.x,-nvy+professeur.y);
+
 		var deltateta=teta-professeur.teta; // evolution
 		if (deltateta>Math.PI) deltateta=deltateta-2*Math.PI;
 		if (deltateta<-Math.PI) deltateta=deltateta+2*Math.PI;	
@@ -151,8 +142,6 @@ function bouclePrincipale() {
 		professeur.vitesse = vit;
 		professeur.teta = teta;
 
-	
-		//console.log("vitesse: "+vit);
 
 		ctx.save();
 		ctx.translate(professeur.x,professeur.y);
@@ -185,13 +174,15 @@ function bouclePrincipale() {
 		var d5=intercep(apprenti.x,apprenti.y,apprenti.teta+teta5); 
 		
 		// si accident on repart  au début
-		if ((d1<0.20)||(d2<0.20)||(d3<0.20)||(d4<0.20)||(d5 <0.20)) {
+		
+		var distanceChoc=0.15;
+		if (d1<distanceChoc||d2<distanceChoc||d3<distanceChoc||d4<distanceChoc||d5<distanceChoc) {
             apprenti.x=professeur.x;
 			apprenti.y=professeur.y;
 			apprenti.teta= professeur.teta;
 			apprenti.vitesse=0;
 		}
-
+		
 		// calcul de la reaction
 		
 		conduit([d1,d2,d3,d4,d5]);
@@ -221,6 +212,36 @@ function souris_appui(event) {
 			console.log(i);
 			memo_vitesse=i;
 		}
+	}
+}
+
+function route(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	creerRoute();
+	fond=ctx.getImageData(0,0,800,600);
+	afficher_trajectoire();
+	if (inactif) {
+		setTimeout(function(){
+			canvas.focus();
+			temps=0;
+			gameLoop = setInterval(bouclePrincipale, 50);  // 20 fps
+			}, 1000);
+		inactif=false;
+	} 
+}
+
+function circuit(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	creerCircuit();
+	fond=ctx.getImageData(0,0,800,600);
+	afficher_trajectoire();
+	if (inactif) {
+		setTimeout(function(){
+			canvas.focus();
+			temps=0;
+			gameLoop = setInterval(bouclePrincipale, 50);  // 20 fps
+			}, 1000);
+		inactif=false;
 	}
 }
 
@@ -261,6 +282,8 @@ function rythme_bouje(event) {
 }
 
 function apprentissage() {
+	boutonRoute.disabled=true;
+	boutonCircuit.disabled=true;
 	
 	for (var n=0; n < inter.length; n++) {
 		for (var e=0; e < entree.length; e++) {
@@ -270,19 +293,18 @@ function apprentissage() {
 	for (var i=0; i < entree.length; i++) {
 			pNs[i] = Math.random()-0.5;
 	} 
-	
-	/*
-	pNc = [	[1,0,0,0,-1], //N1
-			[0,1,0,-1,0], //N2
-			[1,0,0,-1,0],
-			[0,1,0,0,-1],
-			[0,0,0.01,0,0]];
-			
-	pNs = [-1,-1,0,0,0.01];
-	*/
+	if (base.checked ) {
+		pNc = [	[1,0,0,0,-1], //N1
+				[0,1,0,-1,0], //N2
+				[1,0,0,-1,0],
+				[0,1,0,0,-1],
+				[0,0,0.01,0,0]];
+				
+		pNs = [-1,-1,0,0,0.01];
+	}
 	perf=0;
-	apprenti = new voiture_apprenti(x_traj[0], y_traj[0], - Math.PI, 5,0, coefs, imgVoiture);
-	professeur = new voiture_professeur(x_traj[0], y_traj[0], 0, - Math.PI,0,vit_traj[0], imgVoitureProf);
+	apprenti = new voiture_apprenti(xDepart, yDepart, tetaDepart, 5,0, coefs, imgVoiture);
+	professeur = new voiture_professeur(xDepart, yDepart, 0, tetaDepart,0,vit_traj[0], imgVoitureProf);
 }
 
 function enregistre(){

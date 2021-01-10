@@ -3,9 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>Algorithmes génétiques</title>
-	<script type="text/javascript" src="GeneticCortex.js"></script>
-	<script type="text/javascript" src="CreationRoute.js"></script>
-
 	<style type="text/css">
 		canvas
 		{
@@ -41,7 +38,10 @@
 </head>
   
 <body>
-	Lycée PGDG SNT SIN et Spécialités SI <small>Sylvain GRIMAL 2019</small>
+	GSDevelop CC BY-NC-SA <small>Sylvain GRIMAL 2019</small>
+	<button type="button" id="boutonRoute" onClick="javascript:route()" autocomplete="off">  Piste aléatoire  </button>
+	<button type="button" id="boutonCircuit" onClick="javascript:circuit()" autocomplete="off">  Circuit routier  </button>
+	<button type="button" id="boutonCircuit" onClick="javascript:depart()" >  1° génération  </button>
 	<table>
 	<tr>
 		<td>
@@ -50,7 +50,7 @@
 		<td>
 			<img src="reseau1.svg"/>
 			<table>
-				<tr><td><textarea rows="15" cols="35" id="distances" value="0" readonly="readonly" height="600"></textarea><td></tr>
+				<tr><td><textarea rows="15" cols="40" id="distances" value="0" readonly="readonly" height="600"></textarea><td></tr>
 
 			</table>
 		</td>
@@ -66,6 +66,7 @@
 	<img src="coupe.png" id="coupe" style="display:none;"/>
 	<script type="text/javascript" src="GeneticCortex.js"></script>
 	<script type="text/javascript" src="CreationRoute.js"></script>
+	<script type="text/javascript" src="CreationCircuit.js"></script>
 	<script>
 	var slider = document.getElementById("tauxMutation");
 	var output = document.getElementById("valeur");
@@ -74,8 +75,6 @@
 		output.innerHTML = this.value;
     }
 	</script>
-
-
 
 </body>
 </html>

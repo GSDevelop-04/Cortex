@@ -2,6 +2,8 @@
     ctx,
     gameLoop,	
 	ImgVoiture,
+	volantProf,
+	volantEleve,
 	distances,
 	vitesse_slider,
 	rythme_slider,
@@ -9,6 +11,9 @@
 	temps,
 	apprenti,
 	professeur,
+	performance,
+	boutonRoute,
+	boutonCircuit,
 	itC0,
 	itC1,
 	itC2;
@@ -25,6 +30,7 @@ var memo_passage = -1,
 
 var balay=2, // 2 pour 10 hz 3 pour 6 hz
 	vitesseMax=150;
+	inactif=true;
 
 var teta=0;
 
@@ -46,32 +52,20 @@ function cestparti() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
     imgVoiture = document.getElementById("voiture");
 	imgVoitureProf = document.getElementById("voitureProf");
+	volantProf = document.getElementById("volantProf");
+	volantEleve = document.getElementById("volantEleve");
+	boutonRoute = document.getElementById("boutonRoute");	
+	boutonCircuit = document.getElementById("boutonCircuit");	
 	
     distances = document.getElementById("distances");
     vitesse_slider = document.getElementById("vitesse");	
     rythme_slider = document.getElementById("rythme");
+	performance = document.getElementById("performance");
 	itC0 = document.getElementById("C0");
 	itC1 = document.getElementById("C1");
 	itC2 = document.getElementById("C2");
 	
-	creerRoute();		
-	// Création d'une voiture
-	coefs[0]=0.00;
-	coefs[1]=0;
-	coefs[2]=0.0;
-		
-
-	fond=ctx.getImageData(0,0,800,600);
-	afficher_trajectoire();
 	
-	professeur = new voiture_professeur(x_traj[0], y_traj[0], 0, - Math.PI,0,vit_traj[0], imgVoitureProf);
-    apprenti = new voiture_apprenti(x_traj[0], y_traj[0], - Math.PI, 5,0, coefs, imgVoiture);
-	
-	setTimeout(function(){
-       	canvas.focus();
-		temps=0;
-    	gameLoop = setInterval(bouclePrincipale, 50);  // 20 fps
-     }, 1000); 
 }
 
 function intercep(x,y,teta){
@@ -124,28 +118,26 @@ function bouclePrincipale() {
 		// position entre le point n de la trajectoire et np
 		var n=professeur.troncon;
 				
-		var nvx=trajectoire.x(n,t);
-		var nvy=trajectoire.y(n,t);
-		var vit=trajectoire.vit(n,t);
-		
+		var pasT=0.002;		
+		var nvx=trajectoire.x(n,t+pasT);
+		var nvy=trajectoire.y(n,t+pasT);
+		var vit=trajectoire.vit(n,t+pasT);
+		teta=trajectoire.teta(n,t+pasT);
 		// calcul de la nouvelle position
-		
-		while (Math.pow(nvx-professeur.x,2)+Math.pow(nvy-professeur.y,2)< Math.pow(0.06*professeur.vitesse,2)) {
-			if (t<1) t=t+0.001; // en est toujours sur le troncon
-			else { 				// troncon suivant
-				professeur.troncon++;
-				if( professeur.troncon==nb_traj) professeur.troncon=0;
-				t=0;
-				break;		  
-		    }
-			nvx=trajectoire.x(n,t);
-			nvy=trajectoire.y(n,t);
-			vit=trajectoire.vit(n,t);
+
+		while (Math.pow(nvx-professeur.x,2)+Math.pow(nvy-professeur.y,2)< Math.pow(0.06*0.99*professeur.vitesse,2)) {
+			t+=pasT; 
+			nvx=trajectoire.x(n,t+pasT);
+			nvy=trajectoire.y(n,t+pasT);
+			vit=trajectoire.vit(n,t+pasT);
+			teta=trajectoire.teta(n,t+pasT);
 		}
-		
-		// direction du deplacement
-		
-		teta=Math.atan2(nvx-professeur.x,-nvy+professeur.y);
+		if (t+pasT	>=1) {  // en est plus sur le troncon
+			professeur.troncon++;
+			if( professeur.troncon==nb_traj) professeur.troncon=0;
+			t=0;
+		}	
+
 		var deltateta=teta-professeur.teta; // evolution
 		if (deltateta>Math.PI) deltateta=deltateta-2*Math.PI;
 		if (deltateta<-Math.PI) deltateta=deltateta+2*Math.PI;	
@@ -177,7 +169,7 @@ function bouclePrincipale() {
 		
 		
 	}
-	if (apprenti.actif) {
+	if (apprenti) {
 		// déplacement
 		apprenti.x+=0.06*apprenti.vitesse*Math.sin(apprenti.teta);
 		apprenti.y+=-0.06*apprenti.vitesse*Math.cos(apprenti.teta);
@@ -218,6 +210,38 @@ function bouclePrincipale() {
 		ctx.restore();
 	
 	}
+}
+
+function route(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	creerRoute();
+	fond=ctx.getImageData(0,0,800,600);
+	afficher_trajectoire();
+	if (inactif) {
+		setTimeout(function(){
+			canvas.focus();
+			temps=0;
+			gameLoop = setInterval(bouclePrincipale, 50);  // 20 fps
+			}, 1000);
+		inactif=false;
+	} 
+
+}
+
+function circuit(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	creerCircuit();
+	fond=ctx.getImageData(0,0,800,600);
+	afficher_trajectoire();
+	if (inactif) {
+		setTimeout(function(){
+			canvas.focus();
+			temps=0;
+			gameLoop = setInterval(bouclePrincipale, 50);  // 20 fps
+			}, 1000);
+		inactif=false;
+	}
+
 }
 
 function souris_appui(event) {
@@ -276,7 +300,17 @@ function rythme_bouje(event) {
 }
 
 function apprentissage() {
-    apprenti.actif=true;
+	boutonRoute.disabled=true;
+	boutonCircuit.disabled=true;
+	// Création d'une voiture
+	coefs[0]=0.00;
+	coefs[1]=0;
+	coefs[2]=0.0;
+	
+	professeur = new voiture_professeur(xDepart, yDepart, 0, tetaDepart,0,vit_traj[0], imgVoitureProf);
+    apprenti = new voiture_apprenti(xDepart, yDepart, tetaDepart, 5,0, coefs, imgVoiture);
+    
+	apprenti.actif=true;
     apprenti.auto=true;
     xm=0,
 	ym=0,
@@ -287,6 +321,7 @@ function apprentissage() {
 	sx2=0,
 	sxxmyym=0,
 	sxxm2=0;
+	perf=0;
 }
 
 function enregistre () {
@@ -383,6 +418,17 @@ var trajectoire = {
 		var bx=-vx_traj[pn]+3*x_traj[pn]-2*vx_traj[n]-3*x_traj[n];
 		var by=-vy_traj[pn]+3*y_traj[pn]-2*vy_traj[n]-3*y_traj[n];
 		return vit_traj[n] + t * (vit_traj[pn]-vit_traj[n]);	
+	},
+	teta:function(n,t){
+		var pn=n+1;
+		if (pn==nb_traj) {pn=0};
+		
+		// courbe parametrique en fct de t calcul des coefs ax ay bx by
+		var ax=vx_traj[pn]-2*x_traj[pn]+vx_traj[n]+2*x_traj[n];
+		var ay=vy_traj[pn]-2*y_traj[pn]+vy_traj[n]+2*y_traj[n];
+		var bx=-vx_traj[pn]+3*x_traj[pn]-2*vx_traj[n]-3*x_traj[n];
+		var by=-vy_traj[pn]+3*y_traj[pn]-2*vy_traj[n]-3*y_traj[n];
+		return Math.atan2(3*ax*t*t+2*bx*t+vx_traj[n],-(3*ay*t*t+2*by*t+vy_traj[n]));
 	}
 };
 
