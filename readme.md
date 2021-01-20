@@ -85,10 +85,10 @@ L'ensemble est sous licence **CC BY-NC-SA**
 
 ##    2) Câblage
 
-Le câblage peut être réalisé en fil volant ou avec un circuit imprimé (document KiCad)
+Le câblage peut être réalisé en fils volants ou avec un circuit imprimé (document KiCad)
 
 <p align="center">
- <a href="https://github.com/GSDevelop-04/RaceMini">
+ <a href="https://github.com/GSDevelop-04/Cortex">
     <img src="Images/schema.png" alt="véhicules" width="476" height="562">
  </a>
 </p>
