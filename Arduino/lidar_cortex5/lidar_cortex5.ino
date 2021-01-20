@@ -18,10 +18,10 @@
 #define LIDAR Serial1    
 #endif
 #if defined(ESP32)
-#define PINA1 34
-#define PINA2 35
-#define PINB1 22
-#define PINB2 19
+#define PINA1 22
+#define PINA2 19
+#define PINB1 21
+#define PINB2 18
 #define YDLIDAR_MOTOR_SCTP 23 // The PWM pin for control the speed of YDLIDAR's motor. 
 #define YDLIDAR_MOTRO_EN   27 // The ENABLE PIN for YDLIDAR's motor          
 #define LIDAR Serial2

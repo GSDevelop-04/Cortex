@@ -85,6 +85,14 @@ L'ensemble est sous licence **CC BY-NC-SA**
 
 ##    2) Câblage
 
+Le câblage peut être réalisé en fil volant ou avec un circuit imprimé (document KiCad)
+
+<p align="center">
+ <a href="https://github.com/GSDevelop-04/RaceMini">
+    <img src="Images/schema.png" alt="véhicules" width="476" height="562">
+ </a>
+</p>
+
 **Liasons Arduino Due ou ESP32 Lidar:**  
 * Série: Due RX1 / ESP32 RX2           <-> Tx Lidar X4 Tx X2
 * Série: Due TX1 / ESP32 TX2           <-> Rx Lidar X4 Nc X2
@@ -92,11 +100,11 @@ L'ensemble est sous licence **CC BY-NC-SA**
 * Enable Due D3 / ESP32 GPIO 23        <-> M_EN Lidar X4 Nc X2
 
 **Liaisons Arduino Due ou ESP32 Variateur:**  
-* Due D5 /  ESP32 GPIO 35 <-> APWM  // AIN2 DRV8833
-* Due D4 /  ESP32 GPIO 34 <-> AIN1  // Marche avant: 0 Marche arrière: 1
+* Due D5 /  ESP32 GPIO 19 <-> APWM  // AIN2 DRV8833
+* Due D4 /  ESP32 GPIO 22 <-> AIN1  // Marche avant: 0 Marche arrière: 1
 
-* Due D9 /  ESP32 GPIO 19 <-> BPWM  // BIN2 DRV8833 
-* Due D12 / ESP32 GPIO 22 <-> BIN1  // Marche avant: 0 Marche arrière: 1
+* Due D9 /  ESP32 GPIO 21 <-> BPWM  // BIN2 DRV8833 
+* Due D12 / ESP32 GPIO 18 <-> BIN1  // Marche avant: 0 Marche arrière: 1
 
 * +3.3 V                  <-> Vcc selon carte
 * Vbat                    <-> VM				
